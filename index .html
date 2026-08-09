@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тайный Санта 🎅✨</title>
-    <!-- Подключаем красивые новогодние шрифты -->
+    <title>Gizli Şaxta Baba 🎅✨</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,291 +14,104 @@
             --card-bg: rgba(255, 255, 255, 0.07);
             --card-border: rgba(255, 255, 255, 0.15);
             --gold: #ffd166;
-            --gold-hover: #f4c453;
             --red: #ef476f;
             --red-hover: #d63d5e;
             --text: #ffffff;
             --text-muted: #a0aec0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Холст снега */
-        #snowCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        /* Светящиеся пятна гирлянды на фоне */
-        .glow-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(239, 71, 111, 0.25) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(255, 209, 102, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(6, 214, 160, 0.15) 0%, transparent 50%);
-            filter: blur(60px);
-            z-index: 0;
-        }
-
-        .container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 420px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header .hat-icon {
-            font-size: 3rem;
-            display: inline-block;
-            animation: bounce 2s infinite ease-in-out;
-        }
-
-        .header h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.2rem;
-            color: var(--gold);
-            letter-spacing: 1px;
-            margin-top: -10px;
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-        }
-
-        /* Glassmorphism Card */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 28px 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .input-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            margin-left: 4px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(0, 0, 0, 0.25);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .input-group input:focus {
-            border-color: var(--gold);
-            box-shadow: 0 0 10px rgba(255, 209, 102, 0.2);
-        }
-
-        .button-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .btn:active {
-            transform: scale(0.98);
-        }
-
-        .btn-primary {
-            background-color: var(--red);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--red-hover);
-        }
-
-        .btn-secondary {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid var(--card-border);
-        }
-
-        .btn-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
+        
+        #snowCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+        
+        .container { position: relative; z-index: 2; width: 100%; max-width: 420px; padding: 20px; text-align: center; }
+        
+        h1 { font-family: 'Caveat', cursive; font-size: 3rem; color: var(--gold); margin-bottom: 20px; }
+        
+        .card { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 24px; padding: 28px 24px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+        
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group input { width: 100%; padding: 14px; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 12px; color: #fff; font-size: 1rem; outline: none; }
+        
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
+        .btn-primary { background-color: var(--red); color: white; }
+        .btn-secondary { background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid var(--card-border); }
+        
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Холст для снега -->
     <canvas id="snowCanvas"></canvas>
 
-    <!-- Размытые фоновые огни -->
-    <div class="glow-bg"></div>
-
     <div class="container">
-        <header class="header">
-            <span class="hat-icon">🎅</span>
-            <h1>Тайный Санта</h1>
-            <p>Дарите волшебство друг другу</p>
-        </header>
+        <h1>Gizli Şaxta Baba 🎅</h1>
 
-        <main class="card">
-            <div id="auth-section">
-                <div class="input-group">
-                    <label for="username">Твое имя / никнейм</label>
-                    <input type="text" id="username" placeholder="Например, Алекс 🎄" autocomplete="off">
-                </div>
-
-                <div class="button-group">
-                    <button class="btn btn-primary" onclick="createRoom()">
-                        <span>🎁 Создать комнату</span>
-                    </button>
-                    <button class="btn btn-secondary" onclick="showJoinInput()">
-                        <span>🔑 Войти по коду</span>
-                    </button>
-                </div>
-
-                <div id="join-code-group" class="input-group hidden" style="margin-top: 15px;">
-                    <input type="text" id="room-code" placeholder="Введите код комнаты" maxlength="6" style="margin-bottom: 10px;">
-                    <button class="btn btn-primary" onclick="joinRoom()">Подключиться</button>
-                </div>
+        <!-- Giriş Ekranı -->
+        <main class="card" id="auth-section">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Ləqəbiniz (məs. Elvin 🎄)" autocomplete="off">
             </div>
+            <button class="btn btn-primary" onclick="createRoom()">🎁 Otaq yarat</button>
+            <button class="btn btn-secondary" onclick="showJoinInput()">🔑 Otağa qoşul</button>
+            
+            <div id="join-code-group" class="input-group hidden" style="margin-top: 15px;">
+                <input type="text" id="room-code" placeholder="Otaq kodunu daxil et" maxlength="6">
+                <button class="btn btn-primary" style="margin-top: 10px;" onclick="joinRoom()">Daxil ol</button>
+            </div>
+        </main>
+
+        <!-- Lobbi Ekranı -->
+        <main class="card hidden" id="lobby-section">
+            <h2 id="lobby-title">Otaq: ---</h2>
+            <p style="margin: 20px 0; color: var(--text-muted);">İştirakçılar hazırlaşır...</p>
+            <div id="player-list"></div>
+            <button class="btn btn-primary" onclick="alert('Oyun başladı!')">🚀 Oyunu başlat</button>
         </main>
     </div>
 
     <script>
-        // === АНИМАЦИЯ ПАДАЮЩЕГО СНЕГА ===
+        // Səliqəli qar animasiyası
         const canvas = document.getElementById('snowCanvas');
         const ctx = canvas.getContext('2d');
-
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        });
-
-        const numFlakes = 70;
-        const flakes = [];
-
-        for (let i = 0; i < numFlakes; i++) {
-            flakes.push({
-                x: Math.random() * width,
-                y: Math.random() * height,
-                r: Math.random() * 3 + 1,
-                d: Math.random() * 1 + 0.5,
-                opacity: Math.random() * 0.7 + 0.3
-            });
-        }
+        const flakes = Array.from({length: 70}, () => ({x: Math.random()*width, y: Math.random()*height, r: Math.random()*3+1, d: Math.random()+0.5}));
 
         function drawSnow() {
-            ctx.clearRect(0, 0, width, height);
-            
-            for (let i = 0; i < numFlakes; i++) {
-                const f = flakes[i];
+            ctx.clearRect(0,0,width,height);
+            ctx.fillStyle = "white";
+            flakes.forEach(f => {
                 ctx.beginPath();
-                ctx.fillStyle = `rgba(255, 255, 255, ${f.opacity})`;
-                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
                 ctx.fill();
-
                 f.y += f.d;
-                f.x += Math.sin(f.y * 0.02) * 0.5;
-
-                if (f.y > height) {
-                    flakes[i] = {
-                        x: Math.random() * width,
-                        y: 0,
-                        r: f.r,
-                        d: f.d,
-                        opacity: f.opacity
-                    };
-                }
-            }
+                if(f.y > height) f.y = 0;
+            });
             requestAnimationFrame(drawSnow);
         }
-
         drawSnow();
 
-        // === ИНТЕРФЕЙС ===
-        function showJoinInput() {
-            const joinGroup = document.getElementById('join-code-group');
-            joinGroup.classList.toggle('hidden');
-        }
+        // Keçid funksiyaları
+        function showJoinInput() { document.getElementById('join-code-group').classList.toggle('hidden'); }
 
         function createRoom() {
             const name = document.getElementById('username').value.trim();
-            if (!name) {
-                alert('Пожалуйста, введи свой никнейм!');
-                return;
-            }
-            alert(`Отлично, ${name}! Комната создается...`);
+            if (!name) { alert('Zəhmət olmasa ləqəbini daxil et!'); return; }
+            
+            // Gizlədir giriş ekranını, açır lobbini
+            document.getElementById('auth-section').classList.add('hidden');
+            document.getElementById('lobby-section').classList.remove('hidden');
+            document.getElementById('lobby-title').innerText = "Otaq: " + Math.floor(Math.random()*90000+10000);
         }
 
         function joinRoom() {
-            const name = document.getElementById('username').value.trim();
             const code = document.getElementById('room-code').value.trim();
-            if (!name || !code) {
-                alert('Заполни имя и код комнаты!');
-                return;
-            }
-            alert(`Подключаемся к комнате ${code}...`);
+            if (!code) { alert('Kodu daxil et!'); return; }
+            document.getElementById('auth-section').classList.add('hidden');
+            document.getElementById('lobby-section').classList.remove('hidden');
+            document.getElementById('lobby-title').innerText = "Otaq: " + code;
         }
     </script>
 </body>

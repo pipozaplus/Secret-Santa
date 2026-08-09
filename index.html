@@ -4,41 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gizli Şaxta Baba 🎅✨</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
     <style>
-        :root {
-            --bg-color: #0b132b;
-            --card-bg: rgba(255, 255, 255, 0.07);
-            --card-border: rgba(255, 255, 255, 0.15);
-            --gold: #ffd166;
-            --red: #ef476f;
-            --red-hover: #d63d5e;
-            --text: #ffffff;
-            --text-muted: #a0aec0;
-        }
-
+        :root { --bg-color: #0b132b; --card-bg: rgba(255, 255, 255, 0.07); --card-border: rgba(255, 255, 255, 0.15); --gold: #ffd166; --red: #ef476f; --text: #ffffff; --text-muted: #a0aec0; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text); min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
-        
         #snowCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        
         .container { position: relative; z-index: 2; width: 100%; max-width: 420px; padding: 20px; text-align: center; }
-        
-        h1 { font-family: 'Caveat', cursive; font-size: 3rem; color: var(--gold); margin-bottom: 20px; }
-        
         .card { background: var(--card-bg); backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 24px; padding: 28px 24px; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
-        
-        .input-group { text-align: left; margin-bottom: 20px; }
-        .input-group input { width: 100%; padding: 14px; background: rgba(0, 0, 0, 0.25); border: 1px solid var(--card-border); border-radius: 12px; color: #fff; font-size: 1rem; outline: none; }
-        
         .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
         .btn-primary { background-color: var(--red); color: white; }
-        .btn-secondary { background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid var(--card-border); }
-        
+        .btn-restart { background-color: #4a4e69; color: white; margin-bottom: 20px; }
         .hidden { display: none; }
+        .player-badge { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 12px; margin-bottom: 8px; font-size: 0.95rem; }
     </style>
 </head>
 <body>
@@ -48,70 +26,72 @@
     <div class="container">
         <h1>Gizli Şaxta Baba 🎅</h1>
 
-        <!-- Giriş Ekranı -->
+        <!-- ЭКРАН ВХОДА -->
         <main class="card" id="auth-section">
-            <div class="input-group">
-                <input type="text" id="username" placeholder="Ləqəbiniz (məs. Elvin 🎄)" autocomplete="off">
-            </div>
+            <input type="text" id="username" placeholder="Ləqəbiniz (məs. Elvin 🎄)" style="width: 100%; padding: 14px; background: rgba(0,0,0,0.25); border: 1px solid var(--card-border); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none;">
             <button class="btn btn-primary" onclick="createRoom()">🎁 Otaq yarat</button>
-            <button class="btn btn-secondary" onclick="showJoinInput()">🔑 Otağa qoşul</button>
-            
-            <div id="join-code-group" class="input-group hidden" style="margin-top: 15px;">
-                <input type="text" id="room-code" placeholder="Otaq kodunu daxil et" maxlength="6">
-                <button class="btn btn-primary" style="margin-top: 10px;" onclick="joinRoom()">Daxil ol</button>
-            </div>
         </main>
 
-        <!-- Lobbi Ekranı -->
+        <!-- ЛОББИ -->
         <main class="card hidden" id="lobby-section">
-            <h2 id="lobby-title">Otaq: ---</h2>
-            <p style="margin: 20px 0; color: var(--text-muted);">İştirakçılar hazırlaşır...</p>
-            <div id="player-list"></div>
-            <button class="btn btn-primary" onclick="alert('Oyun başladı!')">🚀 Oyunu başlat</button>
+            <!-- Кнопка Рестарт (видна после начала игры) -->
+            <button id="restart-btn" class="btn btn-restart hidden" onclick="restartGame()">🔄 Oyunu yenidən başlat</button>
+            
+            <h2 id="lobby-title" style="color: var(--gold); margin-bottom: 10px;">Otaq: ---</h2>
+            <div id="player-list" style="margin-bottom: 20px;"></div>
+
+            <button id="start-btn" class="btn btn-primary" onclick="startDrawing()">🚀 Oyunu başlat</button>
         </main>
     </div>
 
     <script>
-        // Səliqəli qar animasiyası
-        const canvas = document.getElementById('snowCanvas');
-        const ctx = canvas.getContext('2d');
-        let width = canvas.width = window.innerWidth;
-        let height = canvas.height = window.innerHeight;
-        const flakes = Array.from({length: 70}, () => ({x: Math.random()*width, y: Math.random()*height, r: Math.random()*3+1, d: Math.random()+0.5}));
-
-        function drawSnow() {
-            ctx.clearRect(0,0,width,height);
-            ctx.fillStyle = "white";
-            flakes.forEach(f => {
-                ctx.beginPath();
-                ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
-                ctx.fill();
-                f.y += f.d;
-                if(f.y > height) f.y = 0;
-            });
-            requestAnimationFrame(drawSnow);
-        }
-        drawSnow();
-
-        // Keçid funksiyaları
-        function showJoinInput() { document.getElementById('join-code-group').classList.toggle('hidden'); }
+        // Имитация базы данных (временно)
+        let players = ["Aysel 🌸", "Elvin 🎄", "Murad 🎁", "Leyla ✨"]; // Список для примера
+        let isStarted = false;
 
         function createRoom() {
             const name = document.getElementById('username').value.trim();
-            if (!name) { alert('Zəhmət olmasa ləqəbini daxil et!'); return; }
+            if (!name) return alert('Ləqəbi daxil et!');
+            players.push(name + " (Siz)");
             
-            // Gizlədir giriş ekranını, açır lobbini
             document.getElementById('auth-section').classList.add('hidden');
             document.getElementById('lobby-section').classList.remove('hidden');
-            document.getElementById('lobby-title').innerText = "Otaq: " + Math.floor(Math.random()*90000+10000);
+            updatePlayerList();
         }
 
-        function joinRoom() {
-            const code = document.getElementById('room-code').value.trim();
-            if (!code) { alert('Kodu daxil et!'); return; }
-            document.getElementById('auth-section').classList.add('hidden');
-            document.getElementById('lobby-section').classList.remove('hidden');
-            document.getElementById('lobby-title').innerText = "Otaq: " + code;
+        function updatePlayerList() {
+            const list = document.getElementById('player-list');
+            list.innerHTML = players.map(p => `<div class="player-badge">${p}</div>`).join('');
+        }
+
+        function startDrawing() {
+            // Алгоритм рандома с проверкой: никто не получает себя
+            let targets = [...players];
+            let shuffled;
+            
+            do {
+                shuffled = [...targets].sort(() => Math.random() - 0.5);
+            } while (shuffled.some((target, i) => target === players[i]));
+
+            // Показываем результат
+            const list = document.getElementById('player-list');
+            list.innerHTML = players.map((p, i) => `
+                <div class="player-badge">
+                    <strong>${p}</strong> → ${shuffled[i]}
+                </div>
+            `).join('');
+
+            // Меняем интерфейс
+            document.getElementById('start-btn').classList.add('hidden');
+            document.getElementById('restart-btn').classList.remove('hidden');
+            document.getElementById('lobby-title').innerText = "Nəticələr:";
+        }
+
+        function restartGame() {
+            document.getElementById('start-btn').classList.remove('hidden');
+            document.getElementById('restart-btn').classList.add('hidden');
+            document.getElementById('lobby-title').innerText = "Otaq: #12345";
+            updatePlayerList();
         }
     </script>
 </body>
